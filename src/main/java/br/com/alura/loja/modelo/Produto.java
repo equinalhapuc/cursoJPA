@@ -32,6 +32,10 @@ public class Produto {
 		this.preco = preco;
 		this.categoria = categoria;
 	}
+	
+	public Produto() {
+		
+	}
 
 	public LocalDate getDataCadastro() {
 		return dataCadastro;

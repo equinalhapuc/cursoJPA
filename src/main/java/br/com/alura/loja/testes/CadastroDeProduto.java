@@ -1,6 +1,7 @@
 package br.com.alura.loja.testes;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 
@@ -14,6 +15,28 @@ public class CadastroDeProduto {
 
 	public static void main(String[] args) {
 
+		// cadastroDeProduto();
+		
+		Long id = 1l;
+		EntityManager em = JPAUtil.getEntityManager();
+		ProdutoDAO produtoDAO = new ProdutoDAO(em);
+		
+		Produto celular = produtoDAO.buscarPorId(id);
+		
+		System.out.println(celular.getNome() + " - " + celular.getDescricao());
+		
+		List<Produto> produtos = produtoDAO.listar();
+		for (Produto produto : produtos) {
+			System.out.println(produto.getNome() + " - " + produto.getDescricao());
+		}
+		
+		BigDecimal preco = produtoDAO.buscarPrecoDoProdutoPeloNome("Xiaomi RedMi");
+		
+		System.out.println(preco);
+		
+	}
+
+	private static void cadastroDeProduto() {
 		EntityManager em = JPAUtil.getEntityManager();
 		
 		CategoriaDAO categoriaDAO = new CategoriaDAO(em);

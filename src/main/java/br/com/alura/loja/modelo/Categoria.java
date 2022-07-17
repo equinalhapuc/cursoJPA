@@ -19,6 +19,13 @@ public class Categoria {
 		super();
 		this.nome = nome;
 	}
+	
+	
+	// Para o select, o JPA necessita do construtor padrão
+	public Categoria() {
+		
+	}
+	
 	public Long getId() {
 		return id;
 	}
