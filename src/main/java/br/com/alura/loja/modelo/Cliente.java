@@ -20,6 +20,10 @@ public class Cliente {
 		this.nome = nome;
 		this.cpf = cpf;
 	}
+	
+	public Cliente() {
+		
+	}
 
 	public Long getId() {
 		return id;

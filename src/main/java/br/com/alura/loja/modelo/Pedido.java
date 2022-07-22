@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,18 +22,19 @@ public class Pedido {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	private BigDecimal valorTotal;
+	@Column(name = "valor_total")
+	private BigDecimal valorTotal = BigDecimal.ZERO;
+	@Column(name = "data_cadastro")
 	private LocalDate dataCadastro = LocalDate.now();
 	
 	@ManyToOne
 	private Cliente cliente;
 	
-	@OneToMany(mappedBy = "pedido")
+	@OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
 	private List<ItemPedido> itens = new ArrayList<ItemPedido>();
 
-	public Pedido(BigDecimal valorTotal, Cliente cliente) {
+	public Pedido(Cliente cliente) {
 		super();
-		this.valorTotal = valorTotal;
 		this.cliente = cliente;
 	}
 
@@ -42,6 +45,7 @@ public class Pedido {
 	public void adicionarItem(ItemPedido item) {
 		item.setPedido(this);
 		this.itens.add(item);
+		this.valorTotal = this.valorTotal.add(item.getValor());
 	}
 	
 	public BigDecimal getValorTotal() {
