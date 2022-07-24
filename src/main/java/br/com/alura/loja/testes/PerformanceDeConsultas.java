@@ -20,9 +20,11 @@ public class PerformanceDeConsultas {
 
 		popularBanco();
 		EntityManager em = JPAUtil.getEntityManager();
-		Pedido pedido = em.find(Pedido.class, 1l);
+		PedidoDAO pedidoDAO = new PedidoDAO(em);
+		Pedido pedido = pedidoDAO.buscarComCliente(1l);
 		
-		System.out.println(pedido.getItens().size());
+		// Dispara o segundo select (Lazy)
+		System.out.println(pedido.getCliente().getNome());
 		
 	}
 	
